@@ -4,7 +4,6 @@ import aeds3.*;
 import entidades.Ator;
 import entidades.Elenco;
 import entidades.Serie;
-
 import java.util.ArrayList;
 
 public class ArquivoAtor extends Arquivo<Ator> {
@@ -67,7 +66,7 @@ public class ArquivoAtor extends Arquivo<Ator> {
             return null;
     }
 
-    public Ator[] readSerieDoAtor(int id_ator) throws Exception {
+    public Serie[] readSerieDoAtor(int id_ator) throws Exception {
         if (id_ator < 0)
             return null;
         
@@ -78,8 +77,8 @@ public class ArquivoAtor extends Arquivo<Ator> {
             int i = 0;
 
             for (Elenco e : elencos)
-                Serie[i++] = arqSerie.read(e.getIdSerie());
-            return atores;
+                series[i++] = arqSerie.read(e.getIdSerie());
+            return series;
         } else
             return null;
     }
