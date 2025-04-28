@@ -1,6 +1,7 @@
 Etrutura:
 
 	Entidade elenco:
+  id_elenco
 		id_ator
 		id_serie
 		papel
