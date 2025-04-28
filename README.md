@@ -1,3 +1,22 @@
+Etrutura:
+
+	Entidade elenco:
+  id_elenco
+		id_ator
+		id_serie
+		papel
+		tempoDeTela
+
+
+	Entidade Ator:
+		id
+		nome
+		dataNascimento
+		nacionalidade
+
+
+
+
 # TP1_AEDS3 💻
 
 ## 👨‍🎓 Alunos integrantes da equipe
