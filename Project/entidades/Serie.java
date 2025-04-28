@@ -135,7 +135,7 @@ public class Serie implements EntidadeArquivo {
  		return (this.getID() == ((Serie) obj).getID());
  	}
 
-  public int compareTo(Serie serie) {
-    return Integer.compare(this.id, serie.id);
+    public int compareTo(Serie serie) {
+        return Integer.compare(this.id, serie.id);
     }
 }
