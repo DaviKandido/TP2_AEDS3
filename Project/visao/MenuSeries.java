@@ -293,7 +293,7 @@ public class MenuSeries {
     }
 
     public void mostrarEpSerie() {
-        System.out.println("\nBusca de episódio:");
+        System.out.println("\nBusca de episódio de uma série:");
         System.out.print("De qual série deseja buscar o episódio? (Nome da série): ");
         
         String nomeSerieVinculada = console.nextLine();

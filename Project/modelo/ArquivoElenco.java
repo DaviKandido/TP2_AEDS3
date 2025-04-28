@@ -1,8 +1,7 @@
 package modelo;
 
 import aeds3.*;
-import entidades.Elenco;
-
+import entidades.*;
 import java.util.ArrayList;
 
 public class ArquivoElenco extends Arquivo<Elenco> {
@@ -13,10 +12,13 @@ public class ArquivoElenco extends Arquivo<Elenco> {
   ArvoreBMais<ParTituloId> indiceNomeAtor;
 
   private ArquivoAtor arqAtor;
+  private ArquivoSeries arqSerie;
+
 
   public ArquivoElenco() throws Exception {
     super("elenco", Elenco.class.getConstructor());
     arqAtor = new ArquivoAtor();
+    arqSerie = new ArquivoSeries();
 
     //arvore b+ para o par ator, elenco
     indiceIdAtor_IdElenco = new ArvoreBMais<>(
@@ -53,24 +55,45 @@ public class ArquivoElenco extends Arquivo<Elenco> {
   }
 
   // Metodo para buscar elenco pelo ator
-  public Elenco[] readElencoPorAtor(String nome) throws Exception{
-    if(nome.length() == 0)
-      return null;
+  public Elenco[] readElencoPorAtor(int id_ator) throws Exception{
 
-    ArrayList<ParTituloId> ptis = indiceNomeAtor.read(new ParTituloId(nome, -1));
+    Ator ator = arqAtor.read(id_ator);
+    if(ator == null)
+      throw new Exception("Ator nao encontrado");
+
+    ArrayList<ParIdId> ptis = indiceIdAtor_IdElenco.read(new ParIdId(id_ator, -1));
     
     if(ptis.size() > 0){
       Elenco[] elenco = new Elenco[ptis.size()];
       int i = 0;
 
-      for(ParTituloId pti: ptis)
-        elenco[i++] = read(pti.getId());
+      for(ParIdId pti: ptis)
+        elenco[i++] = read(pti.getId_agregado());
 
       return elenco;
     }else
       return null;
   }
 
+  public Elenco[] readElencoPorSerie(int id_serie) throws Exception{
+
+    Serie serie = arqSerie.read(id_serie);
+    if(serie == null)
+      throw new Exception("serie nao encontrado");
+
+    ArrayList<ParIdId> ptis = indiceIdSerie_IdElenco.read(new ParIdId(id_serie, -1));
+    
+    if(ptis.size() > 0){
+      Elenco[] elenco = new Elenco[ptis.size()];
+      int i = 0;
+
+      for(ParIdId pti: ptis)
+        elenco[i++] = read(pti.getId_agregado());
+
+      return elenco;
+    }else
+      return null;
+  }
 
   @Override
   public boolean delete(int id) throws Exception {

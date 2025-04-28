@@ -2,12 +2,17 @@ package modelo;
 
 import aeds3.*;
 import entidades.Ator;
+import entidades.Elenco;
+import entidades.Serie;
 
 import java.util.ArrayList;
 
 public class ArquivoAtor extends Arquivo<Ator> {
+
+    ArquivoSeries arqSerie = new ArquivoSeries();
     
     ArvoreBMais<ParTituloId> indiceNomeAtor;
+    ArquivoElenco arqElenco = new ArquivoElenco();
 
     public ArquivoAtor() throws Exception {
         super("ator", Ator.class.getConstructor());
@@ -16,6 +21,8 @@ public class ArquivoAtor extends Arquivo<Ator> {
         ParTituloId.class.getConstructor(),
         5,
         "./dados/" + nomeEntidade + "/indiceAtor.db");
+        arqElenco = new ArquivoElenco();
+        arqSerie = new ArquivoSeries();
     }
 
     @Override
@@ -25,6 +32,7 @@ public class ArquivoAtor extends Arquivo<Ator> {
 
         return id;
     }
+
 
     public Ator[] readNome(String nome) throws Exception {
         if (nome.length() == 0)
@@ -37,6 +45,40 @@ public class ArquivoAtor extends Arquivo<Ator> {
 
             for (ParTituloId pti : ptis)
                 atores[i++] = read(pti.getId());
+            return atores;
+        } else
+            return null;
+    }
+
+    public Ator[] readAtoresDaSerie(int id_Serie) throws Exception {
+        if (id_Serie < 0)
+            return null;
+        
+        Elenco[] elencos = arqElenco.readElencoPorAtor(id_Serie);
+
+        if (elencos != null) {
+            Ator[] atores = new Ator[elencos.length];
+            int i = 0;
+
+            for (Elenco e : elencos)
+                atores[i++] = read(e.getIdAtor());
+            return atores;
+        } else
+            return null;
+    }
+
+    public Ator[] readSerieDoAtor(int id_ator) throws Exception {
+        if (id_ator < 0)
+            return null;
+        
+        Elenco[] elencos = arqElenco.readElencoPorSerie(id_ator);
+
+        if (elencos != null) {
+            Serie[] series = new Serie[elencos.length];
+            int i = 0;
+
+            for (Elenco e : elencos)
+                Serie[i++] = arqSerie.read(e.getIdSerie());
             return atores;
         } else
             return null;
