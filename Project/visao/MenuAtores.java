@@ -1,12 +1,10 @@
 package visao;
 
 import entidades.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import modelo.ArquivoAtor;
-import modelo.ArquivoEpisodios;
 import modelo.ArquivoSeries;
 
 
@@ -14,6 +12,8 @@ public class MenuAtores {
 
     ArquivoAtor arqAtores = new ArquivoAtor();
     ArquivoSeries arqSeries = new ArquivoSeries();
+    MenuSeries menuSeries = new MenuSeries();
+
     private static Scanner console = new Scanner(System.in);
 
     public MenuAtores() throws Exception {
@@ -52,10 +52,10 @@ public class MenuAtores {
                 excluirAtor();
                 break;
             case 4:
-                mostrarAtoresDeSerie();
+                mostrarAtoresDaSerie();
                 break;
             case 5:
-                mostrarSeriesDeAtor();
+                mostrarSeriesDoAtores();
                 break;
             case 0:
                 break;
@@ -217,7 +217,7 @@ public class MenuAtores {
     }
 
 
-    public void mostrarAtoresDeSerie(){
+    public void mostrarAtoresDaSerie(){
         System.out.println("\nBusca de atores de uma série:");
         System.out.print("De qual série deseja buscar os atores? (Nome da série): ");
         
@@ -245,19 +245,14 @@ public class MenuAtores {
                             System.err.println("Número inválido!");
                         } else {
                             System.out.println("Atores da série " + series[num].getNome() + ":");
-                            Ator[] atores = arqAtores.readAtoresSerie(series[num].getID());
+                            Ator[] atores = arqAtores.readAtoresDaSerie(series[num].getID());
                             
-                            if (episodios != null && episodios.length > 0) {
-                                int temporadaAtual = -1;
-                                for (Episodio ep : episodios) {
-                                    if (ep.getTemporada() != temporadaAtual) {
-                                        temporadaAtual = ep.getTemporada();
-                                        System.out.println("\nTemporada " + temporadaAtual + ":");
-                                    }
-                                    menuEpisodio.mostraEpisodio(ep);
+                            if (atores != null && atores.length > 0) {
+                                for (Ator at : atores) {
+                                    mostraAtor(at);
                                 }
                             } else {
-                                System.out.println("Nenhum episódio encontrado para esta série.");
+                                System.out.println("Nenhum ator encontrado para esta série.");
                             }
                             dadosCorretos = true;
                         }
@@ -266,17 +261,71 @@ public class MenuAtores {
                         console.nextLine(); // Limpar buffer
                     }
                 } else {
-                    System.out.println("Nenhuma série encontrada com esse nome.");
+                    System.out.println("Nenhum ator encontrada com esse nome.");
                     dadosCorretos = true;
                 }
             } catch (Exception e) {
-                System.out.println("Erro ao buscar a série: " + e.getMessage());
+                System.out.println("Erro ao buscar ator de uma série: " + e.getMessage());
                 dadosCorretos = true;
             }
         } while (!dadosCorretos);
     }
 
 
+
+    public void mostrarSeriesDoAtores(){
+        System.out.println("\nBusca de Series de um ator:");
+        System.out.print("De qual ator deseja buscar as seires? (Nome do ator): ");
+        
+        String nomeAtorVinculado = console.nextLine();
+        System.out.println();
+        boolean dadosCorretos = false;
+        
+        do {
+            try {
+                Ator[] atores = arqAtores.readNome(nomeAtorVinculado);
+                
+                if (atores != null && atores.length > 0) {
+                    System.out.println("Séries encontradas:");
+                    for (int i = 0; i < atores.length; i++) {
+                        System.out.print("[" + i + "] ");
+                        mostraAtor(atores[i]);
+                    }
+                    
+                    System.out.print("\nDigite o número do ator escolhida: ");
+                    if (console.hasNextInt()) {
+                        int num = console.nextInt();
+                        console.nextLine(); // Limpar buffer
+                        
+                        if (num < 0 || num >= atores.length || atores[num] == null) {
+                            System.err.println("Número inválido!");
+                        } else {
+                            System.out.println("Series do ator " + atores[num].getNome() + ":");
+                            Serie[] series = arqAtores.readSerieDoAtor(atores[num].getID());
+                            
+                            if (series != null && series.length > 0) {
+                                for (Serie se : series) {
+                                    mostraSerie(se);
+                                }
+                            } else {
+                                System.out.println("Nenhum série encontrado para esta ator.");
+                            }
+                            dadosCorretos = true;
+                        }
+                    } else {
+                        System.err.println("Entrada inválida! Digite um número válido.");
+                        console.nextLine(); // Limpar buffer
+                    }
+                } else {
+                    System.out.println("Nenhum série encontrada para esse ator.");
+                    dadosCorretos = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Erro ao buscar séries de um ator: " + e.getMessage());
+                dadosCorretos = true;
+            }
+        } while (!dadosCorretos);
+    }
 
 
     //Mostrar Ator
