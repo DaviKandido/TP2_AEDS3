@@ -66,7 +66,7 @@ public class ArquivoElenco extends Arquivo<Elenco> {
       int i = 0;
 
       for(ParIdId pti: ptis)
-        elenco[i++] = read(pti.getId_agregado());
+        elenco[i++] = read(pti.getId_agregador());
 
       return elenco;
     }else

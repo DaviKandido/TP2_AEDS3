@@ -53,7 +53,7 @@ public class ArquivoAtor extends Arquivo<Ator> {
         ArquivoElenco arqElenco = new ArquivoElenco();
 
         
-        Elenco[] elencos = arqElenco.readElencoPorAtor(id_Serie);
+        Elenco[] elencos = arqElenco.readElencoPorSerie(id_Serie);
 
         if (elencos != null) {
             Ator[] atores = new Ator[elencos.length];
@@ -73,7 +73,7 @@ public class ArquivoAtor extends Arquivo<Ator> {
         ArquivoElenco arqElenco = new ArquivoElenco();
 
         
-        Elenco[] elencos = arqElenco.readElencoPorSerie(id_ator);
+        Elenco[] elencos = arqElenco.readElencoPorAtor(id_ator);
 
         if (elencos != null) {
             Serie[] series = new Serie[elencos.length];

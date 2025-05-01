@@ -75,7 +75,7 @@ public class MenuAtores {
         boolean dadosCorretos = false;
 
         String nome = "", nacionalidade = "", papel = "";
-        int tempoTela = 0, id_serie = -1,id_ator = -1;
+        int tempoTela = 0, idserie = -1;
 
 
         LocalDate dataNasc = LocalDate.now();
@@ -129,7 +129,7 @@ public class MenuAtores {
             try {
                 Ator at = new Ator(nome, dataNasc, nacionalidade);
                 int idAtor = arqAtores.create(at);
-                Elenco elenco = new Elenco(papel, tempoTela, id_serie, idAtor);
+                Elenco elenco = new Elenco(papel, tempoTela, idserie, idAtor);
                 arqElenco.create(elenco);
                 System.out.println("Ator incluído com sucesso.");
             } catch (Exception e) {
@@ -139,13 +139,12 @@ public class MenuAtores {
     }
 
     public void buscarAtor() {
-        System.out.println("\nBusca de Atores: \n");
+        System.out.println("\nBusca de Atores: ");
         boolean dadosCorretos = false;
         System.out.println();
         do{
             try {
-                console.nextLine(); // Limpar buffer
-                System.out.print("\nDigite o nome do ator: ");
+                System.out.print("Digite o nome do ator: ");
                 String nomeAtor = console.nextLine();
                 Ator[] atores = arqAtores.readNome(nomeAtor);
                 if(atores != null && atores.length > 0){
@@ -315,7 +314,7 @@ public class MenuAtores {
                         if (num < 0 || num >= series.length || series[num] == null) {
                             System.err.println("Número inválido!");
                         } else {
-                            System.out.println("Atores da série " + series[num].getNome() + ":");
+                            System.out.println("\nAtores da série " + series[num].getNome() + ":");
                             Ator[] atores = arqAtores.readAtoresDaSerie(series[num].getID());
                             
                             if (atores != null && atores.length > 0) {
@@ -346,7 +345,7 @@ public class MenuAtores {
 
     public void mostrarSeriesDoAtores(){
         System.out.println("\nBusca de Series de um ator:");
-        System.out.print("De qual ator deseja buscar as seires? (Nome do ator): ");
+        System.out.print("De qual ator deseja buscar as Series? (Nome do ator): ");
         
         String nomeAtorVinculado = console.nextLine();
         System.out.println();
@@ -371,7 +370,7 @@ public class MenuAtores {
                         if (num < 0 || num >= atores.length || atores[num] == null) {
                             System.err.println("Número inválido!");
                         } else {
-                            System.out.println("Series do ator " + atores[num].getNome() + ":");
+                            System.out.println("\nSeries do ator " + atores[num].getNome() + ":");
                             Serie[] series = arqAtores.readSerieDoAtor(atores[num].getID());
                             
                             if (series != null && series.length > 0) {
@@ -429,26 +428,56 @@ public class MenuAtores {
 
         // Cadastrando atores
         int IdAtor1 = arqAtores.create(new Ator("Bryan Cranston", LocalDate.of(1956, 3, 7), "Americano"));
-        int IdAtor2 = arqAtores.create(new Ator("Millie Bobby Brown", LocalDate.of(2004, 2, 19), "Britânica"));
-        int IdAtor3 = arqAtores.create(new Ator("Emilia Clarke", LocalDate.of(1986, 10, 23), "Britânica"));
-        int IdAtor4 = arqAtores.create(new Ator("Henry Cavill", LocalDate.of(1983, 5, 5), "Britânico"));
-        int IdAtor5 = arqAtores.create(new Ator("Louis Hofmann", LocalDate.of(1997, 6, 3), "Alemão"));
-        int IdAtor6 = arqAtores.create(new Ator("Karl Urban", LocalDate.of(1972, 6, 7), "Neozelandês"));
-        int IdAtor7 = arqAtores.create(new Ator("Cillian Murphy", LocalDate.of(1976, 5, 25), "Irlandês"));
-        int IdAtor8 = arqAtores.create(new Ator("Pedro Pascal", LocalDate.of(1975, 4, 2), "Chileno-Americano"));
-        int IdAtor9 = arqAtores.create(new Ator("Matt Smith", LocalDate.of(1982, 10, 28), "Britânico"));
-        int IdAtor10 = arqAtores.create(new Ator("Tom Hiddleston", LocalDate.of(1981, 2, 9), "Britânico"));
-    
-        // Cadastrando elencos 
+        int IdAtor2 = arqAtores.create(new Ator("Aaron Paul", LocalDate.of(1979, 8, 27), "Americano"));
+        int IdAtor3 = arqAtores.create(new Ator("Millie Bobby Brown", LocalDate.of(2004, 2, 19), "Britânica"));
+        int IdAtor4 = arqAtores.create(new Ator("David Harbour", LocalDate.of(1975, 4, 10), "Americano"));
+        int IdAtor5 = arqAtores.create(new Ator("Emilia Clarke", LocalDate.of(1986, 10, 23), "Britânica"));
+        int IdAtor6 = arqAtores.create(new Ator("Kit Harington", LocalDate.of(1986, 12, 26), "Britânico"));
+        int IdAtor7 = arqAtores.create(new Ator("Henry Cavill", LocalDate.of(1983, 5, 5), "Britânico"));
+        int IdAtor8 = arqAtores.create(new Ator("Anya Chalotra", LocalDate.of(1996, 7, 21), "Britânica"));
+        int IdAtor9 = arqAtores.create(new Ator("Louis Hofmann", LocalDate.of(1997, 6, 3), "Alemão"));
+        int IdAtor10 = arqAtores.create(new Ator("Lisa Vicari", LocalDate.of(1997, 2, 11), "Alemã"));
+        int IdAtor11 = arqAtores.create(new Ator("Karl Urban", LocalDate.of(1972, 6, 7), "Neozelandês"));
+        int IdAtor12 = arqAtores.create(new Ator("Jack Quaid", LocalDate.of(1992, 4, 24), "Americano"));
+        int IdAtor13 = arqAtores.create(new Ator("Cillian Murphy", LocalDate.of(1976, 5, 25), "Irlandês"));
+        int IdAtor14 = arqAtores.create(new Ator("Paul Anderson", LocalDate.of(1978, 11, 12), "Britânico"));
+        int IdAtor15 = arqAtores.create(new Ator("Pedro Pascal", LocalDate.of(1975, 4, 2), "Chileno-Americano"));
+        int IdAtor16 = arqAtores.create(new Ator("Emily Swallow", LocalDate.of(1979, 12, 18), "Americana"));
+        int IdAtor17 = arqAtores.create(new Ator("Matt Smith", LocalDate.of(1982, 10, 28), "Britânico"));
+        int IdAtor18 = arqAtores.create(new Ator("Emma D'Arcy", LocalDate.of(1992, 6, 27), "Britânica"));
+        int IdAtor19 = arqAtores.create(new Ator("Tom Hiddleston", LocalDate.of(1981, 2, 9), "Britânico"));
+        int IdAtor20 = arqAtores.create(new Ator("Sophia Di Martino", LocalDate.of(1983, 11, 15), "Britânica"));
+
+        // Cadastrando elencos (referenciando apenas séries de ID 1 a 10)
         arqElenco.create(new Elenco("Walter White", 95, 1, IdAtor1));
-        arqElenco.create(new Elenco("Eleven", 88, 2, IdAtor2));
-        arqElenco.create(new Elenco("Daenerys Targaryen", 77, 3, IdAtor3));
-        arqElenco.create(new Elenco("Geralt de Rívia", 90, 4, IdAtor4));
-        arqElenco.create(new Elenco("Jonas Kahnwald", 80, 5, IdAtor5));
-        arqElenco.create(new Elenco("Billy Butcher", 85, 6, IdAtor6));
-        arqElenco.create(new Elenco("Thomas Shelby", 93, 7, IdAtor7));
-        arqElenco.create(new Elenco("Din Djarin (Mando)", 89, 8, IdAtor8));
-        arqElenco.create(new Elenco("Daemon Targaryen", 70, 9, IdAtor9));
-        arqElenco.create(new Elenco("Loki", 92, 10, IdAtor10));
+        arqElenco.create(new Elenco("Jesse Pinkman", 92, 1, IdAtor2));
+
+        arqElenco.create(new Elenco("Eleven", 88, 2, IdAtor3));
+        arqElenco.create(new Elenco("Jim Hopper", 85, 2, IdAtor4));
+
+        arqElenco.create(new Elenco("Daenerys Targaryen", 84, 3, IdAtor5));
+        arqElenco.create(new Elenco("Jon Snow", 86, 3, IdAtor6));
+
+        arqElenco.create(new Elenco("Geralt de Rívia", 91, 4, IdAtor7));
+        arqElenco.create(new Elenco("Yennefer", 82, 4, IdAtor8));
+
+        arqElenco.create(new Elenco("Jonas Kahnwald", 80, 5, IdAtor9));
+        arqElenco.create(new Elenco("Martha Nielsen", 78, 5, IdAtor10));
+
+        arqElenco.create(new Elenco("Billy Butcher", 86, 6, IdAtor11));
+        arqElenco.create(new Elenco("Hughie Campbell", 83, 6, IdAtor12));
+
+        arqElenco.create(new Elenco("Thomas Shelby", 93, 7, IdAtor13));
+        arqElenco.create(new Elenco("Arthur Shelby", 81, 7, IdAtor14));
+
+        arqElenco.create(new Elenco("Din Djarin (Mando)", 89, 8, IdAtor15));
+        arqElenco.create(new Elenco("The Armorer", 75, 8, IdAtor16));
+
+        arqElenco.create(new Elenco("Daemon Targaryen", 79, 9, IdAtor17));
+        arqElenco.create(new Elenco("Rhaenyra Targaryen", 82, 9, IdAtor18));
+
+        arqElenco.create(new Elenco("Loki", 92, 10, IdAtor19));
+        arqElenco.create(new Elenco("Sylvie", 87, 10, IdAtor20));
+
     }
 }
