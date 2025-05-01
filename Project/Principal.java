@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 import visao.MenuAtores;
 import visao.MenuEpisodios;
 import visao.MenuSeries;
@@ -43,6 +42,7 @@ public class Principal {
                     case 9:
                         (new MenuSeries()).povoar();
                         (new MenuEpisodios()).povoar();
+                        (new MenuAtores()).povoar();
                         break;
                     case 0:
                         break;

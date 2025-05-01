@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import modelo.ArquivoAtor;
+import modelo.ArquivoElenco;
 import modelo.ArquivoSeries;
 
 
@@ -13,6 +14,7 @@ public class MenuAtores {
     ArquivoAtor arqAtores = new ArquivoAtor();
     ArquivoSeries arqSeries = new ArquivoSeries();
     MenuSeries menuSeries = new MenuSeries();
+    ArquivoElenco arqElenco = new ArquivoElenco();
 
     private static Scanner console = new Scanner(System.in);
 
@@ -66,6 +68,75 @@ public class MenuAtores {
     } while (opcao != 0);
 }
 
+
+    public void incluirAtores(int idSerie) throws Exception {
+        System.out.println("\nInclusão de Atores");
+        System.out.println();
+        boolean dadosCorretos = false;
+
+        String nome = "", nacionalidade = "", papel = "";
+        int tempoTela = 0, id_serie = -1,id_ator = -1;
+
+
+        LocalDate dataNasc = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Nome
+        do {
+            System.out.print("Nome do Ator (min. 2 letras): ");
+            nome = console.nextLine();
+        } while (nome.length() < 2);
+
+        // Nacionalidade
+        do {
+            System.out.print("Nacionalidade do Ator (min. 2 letras): ");
+            nacionalidade = console.nextLine();
+        } while (nacionalidade.length() < 2);
+
+        dadosCorretos = false;
+        do {
+            System.out.print("Data de nascimento (DD/MM/AAAA): ");
+            String dataStr = console.nextLine();
+            try {
+                dataNasc = LocalDate.parse(dataStr, formatter);
+                dadosCorretos = true;
+            } catch (Exception e) {
+                System.err.println("Data inválida! Use o formato DD/MM/AAAA.");
+            }
+        } while(!dadosCorretos);
+
+        // Papel
+        do {
+            System.out.print("Qual papel do Ator na Serie (min. 2 letras): ");
+            nome = console.nextLine();
+        } while (nome.length() < 2);
+
+        // Tempo de tela
+        dadosCorretos = false;
+        do {
+            System.out.print("Qual o tempo de tela do ator na serie em Minutos (0-999): ");
+            if (console.hasNextInt()) {
+                tempoTela = console.nextInt();
+                dadosCorretos = true;
+            }
+            console.nextLine();
+        } while(!dadosCorretos);
+        
+
+        System.out.print("\nConfirma a inclusão do Ator na série? (S/N) ");
+        char resp = console.nextLine().charAt(0);
+        if (resp == 'S' || resp == 's') {
+            try {
+                Ator at = new Ator(nome, dataNasc, nacionalidade);
+                int idAtor = arqAtores.create(at);
+                Elenco elenco = new Elenco(papel, tempoTela, id_serie, idAtor);
+                arqElenco.create(elenco);
+                System.out.println("Ator incluído com sucesso.");
+            } catch (Exception e) {
+                System.out.println("Erro ao incluir Ator.");
+            }
+        }
+    }
 
     public void buscarAtor() {
         System.out.println("\nBusca de Atores: \n");
@@ -353,4 +424,31 @@ public class MenuAtores {
         }
     }
 
+
+    public void povoar() throws Exception {
+
+        // Cadastrando atores
+        int IdAtor1 = arqAtores.create(new Ator("Bryan Cranston", LocalDate.of(1956, 3, 7), "Americano"));
+        int IdAtor2 = arqAtores.create(new Ator("Millie Bobby Brown", LocalDate.of(2004, 2, 19), "Britânica"));
+        int IdAtor3 = arqAtores.create(new Ator("Emilia Clarke", LocalDate.of(1986, 10, 23), "Britânica"));
+        int IdAtor4 = arqAtores.create(new Ator("Henry Cavill", LocalDate.of(1983, 5, 5), "Britânico"));
+        int IdAtor5 = arqAtores.create(new Ator("Louis Hofmann", LocalDate.of(1997, 6, 3), "Alemão"));
+        int IdAtor6 = arqAtores.create(new Ator("Karl Urban", LocalDate.of(1972, 6, 7), "Neozelandês"));
+        int IdAtor7 = arqAtores.create(new Ator("Cillian Murphy", LocalDate.of(1976, 5, 25), "Irlandês"));
+        int IdAtor8 = arqAtores.create(new Ator("Pedro Pascal", LocalDate.of(1975, 4, 2), "Chileno-Americano"));
+        int IdAtor9 = arqAtores.create(new Ator("Matt Smith", LocalDate.of(1982, 10, 28), "Britânico"));
+        int IdAtor10 = arqAtores.create(new Ator("Tom Hiddleston", LocalDate.of(1981, 2, 9), "Britânico"));
+    
+        // Cadastrando elencos 
+        arqElenco.create(new Elenco("Walter White", 95, 1, IdAtor1));
+        arqElenco.create(new Elenco("Eleven", 88, 2, IdAtor2));
+        arqElenco.create(new Elenco("Daenerys Targaryen", 77, 3, IdAtor3));
+        arqElenco.create(new Elenco("Geralt de Rívia", 90, 4, IdAtor4));
+        arqElenco.create(new Elenco("Jonas Kahnwald", 80, 5, IdAtor5));
+        arqElenco.create(new Elenco("Billy Butcher", 85, 6, IdAtor6));
+        arqElenco.create(new Elenco("Thomas Shelby", 93, 7, IdAtor7));
+        arqElenco.create(new Elenco("Din Djarin (Mando)", 89, 8, IdAtor8));
+        arqElenco.create(new Elenco("Daemon Targaryen", 70, 9, IdAtor9));
+        arqElenco.create(new Elenco("Loki", 92, 10, IdAtor10));
+    }
 }

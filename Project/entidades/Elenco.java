@@ -9,23 +9,21 @@ import java.io.DataOutputStream;
 public class Elenco implements EntidadeArquivo {
 
     private int id;  
-    private String nome;
     private String papel;
     private int tempoTela;
     private int id_serie;    
     private int id_ator;
 
     public Elenco() throws Exception  {
-        this(-1, "", "", -1, -1, -1);
+        this(-1, "", -1, -1, -1);
     }
 
-    public Elenco(String nome, String papel, int tempoTela, int id_serie, int id_ator) throws Exception {
-        this(-1, nome, papel, tempoTela, id_serie, id_ator);
+    public Elenco(String papel, int tempoTela, int id_serie, int id_ator) throws Exception {
+        this(-1, papel, tempoTela, id_serie, id_ator);
     }
 
-    public Elenco(int id, String nome, String papel, int tempoTela, int id_serie, int id_ator) throws Exception {
+    public Elenco(int id, String papel, int tempoTela, int id_serie, int id_ator) throws Exception {
         this.id = id;
-        this.nome = nome;
         this.papel = papel;
         this.tempoTela = tempoTela;
         this.id_serie = id_serie;
@@ -38,14 +36,6 @@ public class Elenco implements EntidadeArquivo {
 
     public void setID(int id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getPapel() {
@@ -81,7 +71,6 @@ public class Elenco implements EntidadeArquivo {
         DataOutputStream dos = new DataOutputStream(baos);
         
         dos.writeInt(id);
-        dos.writeUTF(nome);
         dos.writeUTF(papel);
         dos.writeInt(tempoTela);
         dos.writeInt(id_serie);
@@ -95,7 +84,6 @@ public class Elenco implements EntidadeArquivo {
         DataInputStream dis = new DataInputStream(bais);
     
         id = dis.readInt();
-        nome = dis.readUTF();
         papel = dis.readUTF();
         tempoTela = dis.readInt();
         id_serie = dis.readInt();
@@ -103,8 +91,7 @@ public class Elenco implements EntidadeArquivo {
     }
 
     public String toString(){
-        return "Elenco = [Nome: " + nome +
-                "\nPapel: " + papel +
+        return "Elenco = [Papel: " + papel +
                 "\nTempo de Tela: " + tempoTela + 
                 "\nid_serie: " + id_serie +
                 "\nid_ator: " + id_ator + "]";

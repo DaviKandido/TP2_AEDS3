@@ -11,14 +11,12 @@ public class ArquivoElenco extends Arquivo<Elenco> {
   ArvoreBMais<ParIdId> indiceIdSerie_IdElenco;
   ArvoreBMais<ParTituloId> indiceNomeAtor;
 
-  private ArquivoAtor arqAtor;
-  private ArquivoSeries arqSerie;
+  private ArquivoAtor arqAtor = new ArquivoAtor();;
+  private ArquivoSeries arqSerie = new ArquivoSeries();
 
 
   public ArquivoElenco() throws Exception {
     super("elenco", Elenco.class.getConstructor());
-    arqAtor = new ArquivoAtor();
-    arqSerie = new ArquivoSeries();
 
     //arvore b+ para o par ator, elenco
     indiceIdAtor_IdElenco = new ArvoreBMais<>(
@@ -102,8 +100,7 @@ public class ArquivoElenco extends Arquivo<Elenco> {
       if (super.delete(id))
         return indiceIdAtor_IdElenco.delete(new ParIdId(e.getIdAtor(), id))
             && indiceIdSerie_IdElenco.delete(new ParIdId(e.getIdSerie(), id))
-            && indiceNomeAtor.delete(new ParTituloId(e.getNome(), id));
-
+            && indiceNomeAtor.delete(new ParTituloId(arqAtor.read(e.getIdAtor()).getNome(), id));
     }
     return false;
   }

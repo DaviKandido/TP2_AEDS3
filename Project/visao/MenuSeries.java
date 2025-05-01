@@ -13,6 +13,7 @@ public class MenuSeries {
     ArquivoEpisodios arqEpisodios = new ArquivoEpisodios();
     private static Scanner console = new Scanner(System.in);
     MenuEpisodios menuEpisodio = new MenuEpisodios(); 
+    MenuAtores menuAtores = new MenuAtores();
 
     public MenuSeries() throws Exception {
         arqSeries = new ArquivoSeries();
@@ -68,6 +69,7 @@ public class MenuSeries {
         System.out.println("\nInclusão de Série");
 
         String nome, sinopse, streaming, genero, classind;
+        int idSerie;
         LocalDate ano = null;
         int anoAtual = LocalDate.now().getYear();
 
@@ -117,18 +119,35 @@ public class MenuSeries {
             System.out.print("Streaming (min. 3 letras): ");
             streaming = console.nextLine();
         } while (streaming.length() < 3);
+        
 
         System.out.print("\nConfirma a inclusão da série? (S/N) ");
         char resp = console.nextLine().charAt(0);
         if (resp == 'S' || resp == 's') {
             try {
                 Serie s = new Serie(nome, ano, sinopse, streaming, genero, classind);
-                arqSeries.create(s);
+                idSerie = arqSeries.create(s);
                 System.out.println("Série incluída com sucesso.");
+
+                // Atores
+                do {
+                    System.out.print("Deseja incluir atores? (S/N): ");
+                    char resposta = console.nextLine().charAt(0);
+                    if (resposta == 'S' || resposta == 's') {
+                        try{
+                            menuAtores.incluirAtores(idSerie);
+                        } catch (Exception e) {
+                            System.out.println("Erro ao incluir atores: " + e.getMessage()); 
+                        }
+                    }
+                    streaming = console.nextLine();
+                } while (streaming.length() < 3);
             } catch (Exception e) {
                 System.out.println("Erro ao incluir série.");
             }
         }
+
+
     }
 
     //Buscar Série pelo nome

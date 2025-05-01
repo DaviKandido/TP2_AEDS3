@@ -20,8 +20,6 @@ public class ArquivoAtor extends Arquivo<Ator> {
         ParTituloId.class.getConstructor(),
         5,
         "./dados/" + nomeEntidade + "/indiceAtor.db");
-        arqElenco = new ArquivoElenco();
-        arqSerie = new ArquivoSeries();
     }
 
     @Override
