@@ -12,9 +12,9 @@ import modelo.ArquivoSeries;
 public class MenuAtores {
 
     ArquivoAtor arqAtores = new ArquivoAtor();
-    ArquivoSeries arqSeries = new ArquivoSeries();
-    MenuSeries menuSeries = new MenuSeries();
     ArquivoElenco arqElenco = new ArquivoElenco();
+    
+    ArquivoSeries arqSeries = new ArquivoSeries();
 
     private static Scanner console = new Scanner(System.in);
 

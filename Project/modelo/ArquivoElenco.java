@@ -11,7 +11,7 @@ public class ArquivoElenco extends Arquivo<Elenco> {
   ArvoreBMais<ParIdId> indiceIdSerie_IdElenco;
   ArvoreBMais<ParTituloId> indiceNomeAtor;
 
-  private ArquivoAtor arqAtor = new ArquivoAtor();;
+  private ArquivoAtor arqAtor = new ArquivoAtor();
   private ArquivoSeries arqSerie = new ArquivoSeries();
 
 
@@ -99,8 +99,7 @@ public class ArquivoElenco extends Arquivo<Elenco> {
     if (e != null) {
       if (super.delete(id))
         return indiceIdAtor_IdElenco.delete(new ParIdId(e.getIdAtor(), id))
-            && indiceIdSerie_IdElenco.delete(new ParIdId(e.getIdSerie(), id))
-            && indiceNomeAtor.delete(new ParTituloId(arqAtor.read(e.getIdAtor()).getNome(), id));
+            && indiceIdSerie_IdElenco.delete(new ParIdId(e.getIdSerie(), id));
     }
     return false;
   }

@@ -11,7 +11,6 @@ public class ArquivoAtor extends Arquivo<Ator> {
     ArquivoSeries arqSerie = new ArquivoSeries();
     
     ArvoreBMais<ParTituloId> indiceNomeAtor;
-    ArquivoElenco arqElenco = new ArquivoElenco();
 
     public ArquivoAtor() throws Exception {
         super("ator", Ator.class.getConstructor());
@@ -50,6 +49,9 @@ public class ArquivoAtor extends Arquivo<Ator> {
     public Ator[] readAtoresDaSerie(int id_Serie) throws Exception {
         if (id_Serie < 0)
             return null;
+
+        ArquivoElenco arqElenco = new ArquivoElenco();
+
         
         Elenco[] elencos = arqElenco.readElencoPorAtor(id_Serie);
 
@@ -67,6 +69,9 @@ public class ArquivoAtor extends Arquivo<Ator> {
     public Serie[] readSerieDoAtor(int id_ator) throws Exception {
         if (id_ator < 0)
             return null;
+
+        ArquivoElenco arqElenco = new ArquivoElenco();
+
         
         Elenco[] elencos = arqElenco.readElencoPorSerie(id_ator);
 
