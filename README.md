@@ -1,4 +1,4 @@
-# TP1_AEDS3 💻
+# TP2_AEDS3 💻
 
 ## 👨‍🎓 Alunos integrantes da equipe
 
