@@ -49,6 +49,11 @@ Este projeto é uma aplicação desenvolvida em Java chamada PUCFlix 2.0, que si
    	└── RegistroArvoreBMais.java  //(Métodos: size, toByteArray, fromByteArray, compareTo, clone)
    	└── RegistroHashExtensivel.java  //(Métodos: hashCode, size, toByteArray, fromByteArray)
    └── 📁dados
+	└── 📁ator
+            └── ator.db
+            └── indiceAtor.db
+            └── indiceDireito.c.db
+            └── indiceDireito.d.db
    	└── 📁episodio
        	   └── episodio.db
        	   └── indiceDireito.c.db
@@ -61,16 +66,20 @@ Este projeto é uma aplicação desenvolvida em Java chamada PUCFlix 2.0, que si
        	   └── indiceNomeSerie.d.db
        	   └── series.db
    └── 📁entidades
+	└── Ator.java // (Métodos: Ator, getID, setID, getNome, setNome, getDataNasc, setDataNasc, getNacionalidade, toByteArray, fromByteArray, toString, equals, compareTo)
    	└── Episodio.java //(Métodos: getID, setID, getID_serie, setID_serie, getNome, setNome, getTemporada, setTemporada, getDataLancamento, setDataLancamento, getDuracaoMinutos, setDuracaoMinutos, getAvaliacao, setAvaliacao, isEspecial, setEspecial, getDescricao, setDescricao, toByteArray, fromByteArray, toString, equals, compareTo)
    	└── Serie.java //(Métodos: getID, setID, getNome, setNome, getAnoLancamento, setAnoLancamento, getSinopse, setSinopse, getStreaming, setStreaming, getGenero, setGenero, getClassIndicativa, toByteArray, fromByteArray, toString, equals, compareTo)
    └── 📁modelo
+	└── ArquivoAtor.java // (Métodos: ArquivoAtor, create, readNome, readAtoresDaSerie, readSerieDoAtor, delete, delete, update, atorExiste)
+	└── ArquivoElenco.java //ArquivoElenco, readElencoPorAtor, read, readElencoPorSerie, delete, deleteAtorElenco, update)
    	└── ArquivoEpisodios.java //(Métodos: create, readNomeEpisodio, readNomeEpisodioPorSerie, readEpisodiosSerie, delete, deleteEpisodioSerie, update, avaliacaoMediaSerie)
    	└── ArquivoSeries.java //(Métodos: create, readNome, delete, update, serieExiste)
-   	└── ParNomeSerieId.java //(Métodos: getNome, getId, clone, size, compareTo, toString, toByteArray, fromByteArray, transforma)
+   	└── ParAtorId.java //(Métodos: ParAtorId, getNome, getId, clone, size, compareTo, toString, toByteArray, fromByteAray, transforma)
    	└── ParTituloId.java //(Métodos: getTitulo, getId, clone, size, compareTo, toString, toByteArray, fromByteArray, transforma)
    └── 📁visao
    	└── MenuEpisodios.java //(Métodos: menu, incluirEpisodio, buscarEpisodio, excluirEpisodio, alterarEpisodio, mostraEpisodio, mostraSerie, povoar)
-   	└── MenuSeries.java //(Métodos: menu, incluirSerie, buscarSerie, alterarSerie, excluirSerie, mostrarEpSerie, mostraSerie, povoar)
+        └── MenuAtores.java //(Métodos: MenuAtores, menu, incluirAtores, buscarAtor, excluirAtor, mostrarAtoresDaSerie, mostraAtor, mostraElenco, mostraSerie, povoar)
+        └── MenuSeries.java //(Métodos: menu, incluirSerie, buscarSerie, alterarSerie, excluirSerie, mostrarEpSerie, mostraSerie, povoar)
    └── Principal.java //(Método: main)
 ```
 
@@ -95,38 +104,28 @@ Os resultados foram alcançados?
 ### Checklist :
 
 ```
-As operações de inclusão, busca, alteração e exclusão de séries estão implementadas e funcionando corretamente?
- - Sim
+    As operações de inclusão, busca, alteração e exclusão de atores estão implementadas e funcionando corretamente?
+    - Sim
+    O relacionamento entre séries e atores foi implementado com árvores B+ e funciona corretamente, assegurando a consistência entre as duas entidades?
+    - Sim
+    É possível consultar quais são os atores de uma série?
+    - Sim
+    É posssível consultar quais são as séries de um ator?
+    - Sim
+    A remoção de séries remove os seus vínculos de atores?
+    - Sim
+    A inclusão de um ator em uma série em um episódio se limita aos atores existentes?
+    - Sim
+    A remoção de um ator checa se há alguma série vinculado a ele?
+    - Sim
+    O trabalho está funcionando corretamente?
+    - Sim
+    O trabalho está completo?
+    - Sim
+    O trabalho é original e não a cópia de um trabalho de outro grupo?
+    - Sim
 
-As operações de inclusão, busca, alteração e exclusão de episódios, por série, estão implementadas e funcionando corretamente?
- - Sim
 
-Essas operações usam a classe CRUD genérica para a construção do arquivo e as classes Tabela Hash Extensível e Árvore B+ como índices diretos e indiretos? 
- - Sim
-
-O atributo de ID de série, como chave estrangeira, foi criado na classe de episódios?
- - Sim
-
-Há uma árvore B+ que registre o relacionamento 1:N entre episódios e séries?
- - Sim
-
-Há uma visualização das séries que mostre os episódios por temporada?
- - Sim
-
-A remoção de séries checa se há algum episódio vinculado a ela?
- - Sim
-
-A inclusão da série em um episódio se limita às séries existentes?
- - Sim
-
-O trabalho está funcionando corretamente?
- - Sim
-
-O trabalho está completo?
- - Sim
-
-O trabalho é original e não a cópia de um trabalho de outro grupo?
- - Sim
 ```
 
 
