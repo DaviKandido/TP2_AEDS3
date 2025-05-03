@@ -319,6 +319,7 @@ public class MenuAtores {
                             
                             if (atores != null && atores.length > 0) {
                                 for (Ator at : atores) {
+                                    System.out.println();
                                     mostraAtor(at);
 
                                     Elenco[] elenco = arqElenco.read(at.getID(), series[num].getID());
@@ -383,9 +384,9 @@ public class MenuAtores {
                             
                             if (series != null && series.length > 0) {
                                 for (Serie se : series) {
+                                    System.out.println();
                                     mostraSerie(se);
 
-                                    
                                     Elenco[] elenco = arqElenco.read(atores[num].getID(), se.getID());
                                     if (elenco != null && elenco.length > 0) {
                                         System.out.println("Fazendo o papel de: ");
