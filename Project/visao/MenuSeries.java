@@ -1,10 +1,15 @@
 
 package visao;
 
+import entidades.Ator;
+import entidades.Elenco;
 import entidades.Episodio;
 import entidades.Serie;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import modelo.ArquivoAtor;
+import modelo.ArquivoElenco;
 import modelo.ArquivoEpisodios;
 import modelo.ArquivoSeries;
 
@@ -14,6 +19,9 @@ public class MenuSeries {
     private static Scanner console = new Scanner(System.in);
     MenuEpisodios menuEpisodio = new MenuEpisodios(); 
     MenuAtores menuAtores = new MenuAtores();
+    ArquivoElenco arqElenco = new ArquivoElenco();
+    ArquivoAtor arqAtores = new ArquivoAtor();
+
 
     public MenuSeries() throws Exception {
         arqSeries = new ArquivoSeries();
@@ -31,6 +39,7 @@ public class MenuSeries {
             System.out.println("3) Alterar");
             System.out.println("4) Excluir");
             System.out.println("5) Mostrar todos os episódios de uma série");
+            System.out.println("6) Mostrar todos os atores de uma série");
             System.out.println("0) Retornar ao menu anterior");
 
             System.out.print("\nOpção: ");
@@ -53,8 +62,11 @@ public class MenuSeries {
                 case 4:
                     excluirSerie();
                     break;
-                    case 5:
+                case 5:
                     mostrarEpSerie();
+                    break;
+                case 6:
+                    mostrarAtoresDaSerie();
                     break;
                 case 0:
                     break;
@@ -385,6 +397,95 @@ public class MenuSeries {
             }
         } while (!dadosCorretos);
     }
+
+
+        public void mostrarAtoresDaSerie(){
+        System.out.println("\nBusca de atores de uma série:");
+        System.out.print("De qual série deseja buscar os atores? (Nome da série): ");
+        
+        String nomeSerieVinculada = console.nextLine();
+        System.out.println();
+        boolean dadosCorretos = false;
+        
+        do {
+            try {
+                Serie[] series = arqSeries.readNome(nomeSerieVinculada);
+                
+                if (series != null && series.length > 0) {
+                    System.out.println("Séries encontradas:");
+                    for (int i = 0; i < series.length; i++) {
+                        System.out.print("[" + i + "] ");
+                        mostraSerie(series[i]);
+                    }
+                    
+                    System.out.print("\nDigite o número da série escolhida: ");
+                    if (console.hasNextInt()) {
+                        int num = console.nextInt();
+                        console.nextLine(); // Limpar buffer
+                        
+                        if (num < 0 || num >= series.length || series[num] == null) {
+                            System.err.println("Número inválido!");
+                        } else {
+                            System.out.println("\nAtores da série " + series[num].getNome() + ":");
+                            Ator[] atores = arqAtores.readAtoresDaSerie(series[num].getID());
+                            
+                            if (atores != null && atores.length > 0) {
+                                for (Ator at : atores) {
+                                    System.out.println();
+                                    mostraAtor(at);
+
+                                    Elenco[] elenco = arqElenco.read(at.getID(), series[num].getID());
+                                    if (elenco != null && elenco.length > 0) {
+                                        System.out.println("Fazendo o papel de: ");
+                                        for(Elenco el : elenco) {
+                                            mostraElenco(el);
+                                        }
+                                    }
+                                }
+                            } else {
+                                System.out.println("Nenhum ator encontrado para esta série.");
+                            }
+                            dadosCorretos = true;
+                        }
+                    } else {
+                        System.err.println("Entrada inválida! Digite um número válido.");
+                        console.nextLine(); // Limpar buffer
+                    }
+                } else {
+                    System.out.println("Nenhum ator encontrada com esse nome.");
+                    dadosCorretos = true;
+                }
+            } catch (Exception e) {
+                System.out.println("Erro ao buscar ator de uma série: " + e.getMessage());
+                dadosCorretos = true;
+            }
+        } while (!dadosCorretos);
+    }
+
+    //Mostrar Ator
+    public void mostraAtor(Ator ator) {
+        if (ator != null) {
+            System.out.println("----------------------");
+            System.out.printf("Nome....: %s%n", ator.getNome());
+            System.out.printf("Data de nascimento: %s%n", ator.getDataNasc().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            System.out.printf("Nacionalidade....: %s%n", ator.getNacionalidade());
+            System.out.println("----------------------");
+        }
+
+    }
+
+    //Mostrar Papel
+    public void mostraElenco(Elenco elenco) {
+        if (elenco != null) {
+            System.out.println("----------------------");
+            System.out.printf("Papel.....: %s%n", elenco.getPapel());
+            System.out.printf("Com um tempo de tela de: %d%n", elenco.getTempoTela());
+            System.out.println("----------------------");
+        }
+
+    }
+
+
     //Mostrar Série
     public void mostraSerie(Serie serie) {
         try{
