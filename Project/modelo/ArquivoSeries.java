@@ -1,11 +1,9 @@
 package modelo;
 
+import aeds3.*;
 import entidades.Episodio;
 import entidades.Serie;
-
 import java.util.ArrayList;
-
-import aeds3.*;
 
 public class ArquivoSeries extends Arquivo<Serie> {
 
@@ -101,9 +99,7 @@ public class ArquivoSeries extends Arquivo<Serie> {
     public static boolean serieExiste(int id) throws Exception {
         ArquivoSeries arqSeries = new ArquivoSeries();
         Serie s = arqSeries.read(id); // na superclasse
-        if (s != null) {
-            return true;
-        }
-        return false;
+        
+        return s != null;
     }
 }

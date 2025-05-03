@@ -108,7 +108,7 @@ public class MenuAtores {
         // Papel
         do {
             System.out.print("Qual papel do Ator na Serie (min. 2 letras): ");
-            nome = console.nextLine();
+            papel = console.nextLine();
         } while (nome.length() < 2);
 
         // Tempo de tela
@@ -133,7 +133,7 @@ public class MenuAtores {
                 arqElenco.create(elenco);
                 System.out.println("Ator incluído com sucesso.");
             } catch (Exception e) {
-                System.out.println("Erro ao incluir Ator.");
+                System.out.println("Erro ao incluir Ator. " + e.getMessage());
             }
         }
     }

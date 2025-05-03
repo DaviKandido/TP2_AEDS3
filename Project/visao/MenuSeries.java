@@ -134,11 +134,23 @@ public class MenuSeries {
                     System.out.print("Deseja incluir atores? (S/N): ");
                     char resposta = console.nextLine().charAt(0);
                     if (resposta == 'S' || resposta == 's') {
-                        try{
-                            menuAtores.incluirAtores(idSerie);
-                        } catch (Exception e) {
-                            System.out.println("Erro ao incluir atores: " + e.getMessage()); 
+                        int qtd = 0;
+                        System.out.print("Quantos atores deseja incluir: ");
+                        try {
+                            qtd = Integer.parseInt(console.nextLine());
+                        } catch (NumberFormatException e) {
+                            System.err.println("Quantidade inválida!");
                         }
+
+                        for (int i = 0; i < qtd; i++) {
+                            System.out.println("\tAtor " + i);
+                            try{
+                                menuAtores.incluirAtores(idSerie);
+                            } catch (Exception e) {
+                                System.out.println("Erro ao incluir atores: " + e.getMessage()); 
+                            }
+                        }
+
                     }
                     streaming = console.nextLine();
                 } while (streaming.length() < 3);
