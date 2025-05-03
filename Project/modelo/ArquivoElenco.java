@@ -73,6 +73,36 @@ public class ArquivoElenco extends Arquivo<Elenco> {
       return null;
   }
 
+
+    // Metodo para buscar elenco pelo ator
+    public Elenco[] read(int id_ator, int id_serie) throws Exception {
+      Ator ator = arqAtor.read(id_ator);
+      if (ator == null)
+          throw new Exception("Ator não encontrado");
+  
+      Serie serie = arqSerie.read(id_serie);
+      if (serie == null)
+          throw new Exception("Série não encontrada");
+  
+      ArrayList<ParIdId> listaAtor = indiceIdAtor_IdElenco.read(new ParIdId(id_ator, -1));
+      ArrayList<ParIdId> listaSerie = indiceIdSerie_IdElenco.read(new ParIdId(id_serie, -1));
+  
+      // Interseção: achar apenas os Elencos que estão em ambas as listas
+      ArrayList<Elenco> elencosEncontrados = new ArrayList<>();
+      for (ParIdId p1 : listaAtor) {
+          for (ParIdId p2 : listaSerie) {
+              if (p1.getId_agregado() == p2.getId_agregado()) {
+                  elencosEncontrados.add(read(p1.getId_agregado()));
+              }
+          }
+      }
+  
+      if (elencosEncontrados.size() > 0)
+          return elencosEncontrados.toArray(new Elenco[0]);
+      else
+          return null;
+  }
+
   public Elenco[] readElencoPorSerie(int id_serie) throws Exception{
 
     Serie serie = arqSerie.read(id_serie);

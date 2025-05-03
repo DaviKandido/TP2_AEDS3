@@ -320,6 +320,14 @@ public class MenuAtores {
                             if (atores != null && atores.length > 0) {
                                 for (Ator at : atores) {
                                     mostraAtor(at);
+
+                                    Elenco[] elenco = arqElenco.read(at.getID(), series[num].getID());
+                                    if (elenco != null && elenco.length > 0) {
+                                        System.out.println("Fazendo o papel de: ");
+                                        for(Elenco el : elenco) {
+                                            mostraElenco(el);
+                                        }
+                                    }
                                 }
                             } else {
                                 System.out.println("Nenhum ator encontrado para esta série.");
@@ -376,6 +384,15 @@ public class MenuAtores {
                             if (series != null && series.length > 0) {
                                 for (Serie se : series) {
                                     mostraSerie(se);
+
+                                    
+                                    Elenco[] elenco = arqElenco.read(atores[num].getID(), se.getID());
+                                    if (elenco != null && elenco.length > 0) {
+                                        System.out.println("Fazendo o papel de: ");
+                                        for(Elenco el : elenco) {
+                                            mostraElenco(el);
+                                        }
+                                    }
                                 }
                             } else {
                                 System.out.println("Nenhum série encontrado para esta ator.");
@@ -407,6 +424,18 @@ public class MenuAtores {
             System.out.printf("Nacionalidade....: %s%n", ator.getNacionalidade());
             System.out.println("----------------------");
         }
+
+    }
+
+    //Mostrar Papel
+    public void mostraElenco(Elenco elenco) {
+        if (elenco != null) {
+            System.out.println("----------------------");
+            System.out.printf("Papel.....: %s%n", elenco.getPapel());
+            System.out.printf("Com um tempo de tela de: %d%n", elenco.getTempoTela());
+            System.out.println("----------------------");
+        }
+
     }
 
     //Mostrar Série
