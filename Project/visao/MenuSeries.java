@@ -129,6 +129,7 @@ public class MenuSeries {
                 idSerie = arqSeries.create(s);
                 System.out.println("Série incluída com sucesso.");
 
+                boolean dadosCorretos = false;
                 // Atores
                 do {
                     System.out.print("Deseja incluir atores? (S/N): ");
@@ -136,24 +137,27 @@ public class MenuSeries {
                     if (resposta == 'S' || resposta == 's') {
                         int qtd = 0;
                         System.out.print("Quantos atores deseja incluir: ");
-                        try {
-                            qtd = Integer.parseInt(console.nextLine());
-                        } catch (NumberFormatException e) {
-                            System.err.println("Quantidade inválida!");
-                        }
+
+                        do {
+                            try {
+                                qtd = Integer.parseInt(console.nextLine());
+                            } catch (NumberFormatException e) {
+                                System.err.println("Quantidade inválida!");
+                            }
+                        } while (qtd <= 0);
 
                         for (int i = 0; i < qtd; i++) {
                             System.out.println("\tAtor " + i);
                             try{
                                 menuAtores.incluirAtores(idSerie);
+                                dadosCorretos = true;
                             } catch (Exception e) {
                                 System.out.println("Erro ao incluir atores: " + e.getMessage()); 
                             }
                         }
 
                     }
-                    streaming = console.nextLine();
-                } while (streaming.length() < 3);
+                } while (dadosCorretos == false);
             } catch (Exception e) {
                 System.out.println("Erro ao incluir série.");
             }

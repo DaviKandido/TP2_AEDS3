@@ -75,7 +75,7 @@ public class MenuAtores {
         boolean dadosCorretos = false;
 
         String nome = "", nacionalidade = "", papel = "";
-        int tempoTela = 0, idserie = -1;
+        int tempoTela = 0;
 
 
         LocalDate dataNasc = LocalDate.now();
@@ -129,7 +129,7 @@ public class MenuAtores {
             try {
                 Ator at = new Ator(nome, dataNasc, nacionalidade);
                 int idAtor = arqAtores.create(at);
-                Elenco elenco = new Elenco(papel, tempoTela, idserie, idAtor);
+                Elenco elenco = new Elenco(papel, tempoTela, idSerie, idAtor);
                 arqElenco.create(elenco);
                 System.out.println("Ator incluído com sucesso.");
             } catch (Exception e) {
