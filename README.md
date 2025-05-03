@@ -1,22 +1,3 @@
-Etrutura:
-
-	Entidade elenco:
-  id_elenco
-		id_ator
-		id_serie
-		papel
-		tempoDeTela
-
-
-	Entidade Ator:
-		id
-		nome
-		dataNascimento
-		nacionalidade
-
-
-
-
 # TP1_AEDS3 💻
 
 ## 👨‍🎓 Alunos integrantes da equipe
@@ -91,10 +72,12 @@ Todos os requisitos foram implementados ?
  - Sim
 
 Houve alguma operação mais difícil? 
- - Sim, o gerenciamento dos índices do relacionamento 1:N.
+ - Sim, o gerenciamento dos índices do relacionamento N:N, já que optamos por ter relacionamentos que comportem atributos,
+   como o papel e tempo de tela do ator na serie o qual esta alocada
 
 Vocês enfrentaram algum desafio na implementação? 
- - Sim, como não poder testar até que tudo estivesse pronto, na exclusão de todos os episódios quando a série é excluída e no gerenciamento dos índices do relacionamento 1:N. 
+ - Sim, como não poder testar até que tudo estivesse pronto, já que o gerenciamento do relacionamento N:N exigia que as duas
+   entidades participantes tivessem sua relação já bem estruturadas, no entanto, no final conseguimos cumprir com o objetivo
 
 Os resultados foram alcançados? 
  - Sim
